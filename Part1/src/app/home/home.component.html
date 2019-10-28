@@ -1,0 +1,23 @@
+<h1>Hi {{currentUser.firstName}}!</h1>
+
+<p>You're logged in to your HRS App!!</p>
+<h3>All registered users:</h3>
+<ul>
+  <li *ngFor="let user of users; let i = index">
+    {{user.username}} ({{user.firstName}} {{user.lastName}})
+    
+    - <a (click)="editUserName(i)" class="text-secondary"  >Edit</a> |  
+     <a (click)="deleteUser(user.id)" class="text-danger">Delete</a>
+
+
+   <form *ngIf="edited == i" [formGroup]="editForm" (ngSubmit)="onSubmit(user)">
+     
+      <input type="text" placeholder="Enter username" formControlName="userName">
+  
+      <button (click)="cancelEdit()" type="submit" class="btn btn-secondary">Cancel</button>
+
+    <button [disabled]="!editForm.valid" type="submit" class="btn btn-success">Submit</button>
+
+ </form>
+  </li>
+</ul>
